@@ -192,6 +192,13 @@
 " }
 
 " Autocommands {
+    " PG_C {
+        " Postgres must use 4 space tabs
+        au BufRead,BufNewFile *.c,*.h set shiftwidth=4
+        au BufRead,BufNewFile *.c,*.h set tabstop=4
+        au BufRead,BufNewFile *.c,*.h set softtabstop=4
+        au BufRead,BufNewFile *.c,*.h set noexpandtab
+    " }
     " Ruby {
         " ruby standard 2 spaces, always
         au BufRead,BufNewFile *.rb,*.rhtml set shiftwidth=2 
