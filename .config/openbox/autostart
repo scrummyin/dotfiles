@@ -20,21 +20,6 @@
 ## GNOME PolicyKit and Keyring
 eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &
 
-## Set root window colour
-hsetroot -solid "#2E3436" &
-
-## Group start:
-## 1. nitrogen - restores wallpaper
-## 2. compositor - start
-## 3. sleep - give compositor time to start
-## 4. tint2 panel
-(\
-nitrogen --restore && \
-cb-compositor --start && \
-sleep 2s && \
-tint2 \
-) &
-
 ## Volume control for systray
 (sleep 2s && pnmixer) &
 
@@ -49,15 +34,12 @@ thunar --daemon &
 
 ## Detect and configure touchpad. See 'man synclient' for more info.
 if egrep -iq 'touchpad' /proc/bus/input/devices; then
-    synclient VertEdgeScroll=1 &
+    #synclient VertEdgeScroll=1 &
     synclient TapButton1=1 &
 fi
 
 ## Start xscreensaver
-xscreensaver -no-splash &
-
-## Start Clipboard manager
-(sleep 3s && clipit) &
+# xscreensaver -no-splash &
 
 ## Set keyboard settings - 250 ms delay and 25 cps (characters per second) repeat rate.
 ## Adjust the values according to your preferances.
@@ -71,6 +53,6 @@ xset b off &
 
 ## Start my stuff
 redshift -l 38.547704:-77.080418 -t 6500k:3500k &
-tint2 &
+(sleep 2 && tint2) &
 guake &
 ## End my stuff

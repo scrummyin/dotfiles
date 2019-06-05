@@ -35,40 +35,12 @@
 				</command>
 			</action>
 		</item>
-		<item label="Text Editor">
-			<action name="Execute">
-				<command>
-					gvim
-				</command>
-			</action>
-		</item>
-		<item label="Media Player">
-			<action name="Execute">
-				<command>
-					vlc
-				</command>
-			</action>
-		</item>
 		<separator/>
 		<menu id="accessories" label="Accessories">
 		    <item label="Catfish File Search">
 				<action name="Execute">
 					<command>
 						catfish
-					</command>
-				</action>
-			</item>
-		    <item label="Archive Manager">
-				<action name="Execute">
-					<command>
-						file-roller
-					</command>
-				</action>
-			</item>
-			<item label="Gvim Text Editor">
-				<action name="Execute">
-					<command>
-						gvim
 					</command>
 				</action>
 			</item>
@@ -99,62 +71,8 @@
 				</action>
 			</item>
 		</menu>
-		<menu id="graphics" label="Graphics">
-			<item label="GIMP">
-				<action name="Execute">
-					<command>
-						gimp
-					</command>
-				</action>
-			</item>
-		    <item label="Viewnior Image Viewer">
-				<action name="Execute">
-					<command>
-						viewnior
-					</command>
-				</action>
-			</item>
-		    <menu id="graphicsScreenshots" label="Take Screenshot">
-				<item label="Screenshooter">
-					<action name="Execute">
-						<command>
-							xfce4-screenshooter
-						</command>
-					</action>
-				</item>
-				<separator label="scrot"/>
-				<item label="Now">
-					<action name="Execute">
-						<command>
-							scrot '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; viewnior ~/images/$f'
-						</command>
-					</action>
-				</item>
-				<item label="In 5 Seconds...">
-					<action name="Execute">
-						<command>
-							scrot -d 5 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; viewnior ~/images/$f'
-						</command>
-					</action>
-				</item>
-				<item label="In 10 Seconds...">
-					<action name="Execute">
-						<command>
-							scrot -d 10 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; viewnior ~/images/$f'
-						</command>
-					</action>
-				</item>
-				<item label="Selected Area... (click &amp; drag mouse)">
-					<action name="Execute">
-						<command>
-							scrot -s '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; viewnior ~/images/$f'
-						</command>
-					</action>
-				</item>
-			</menu>
-		</menu>
 		<menu id="multimedia" label="Multimedia">
-		    <item label="VLC Media Player">
+				<item label="VLC Media Player">
 				<action name="Execute">
 					<command>
 						vlc
@@ -469,13 +387,6 @@
 				<action name="Execute">
 					<command>
 						gksudo gparted
-					</command>
-				</action>
-			</item>
-			<item label="Synaptic Package Manager">
-				<action name="Execute">
-					<command>
-						gksudo synaptic
 					</command>
 				</action>
 			</item>

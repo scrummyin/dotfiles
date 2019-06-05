@@ -1,0 +1,120 @@
+conky.config = {
+--pulled from https://raw.githubusercontent.com/pascalwhoop/conky.conf/master/conky.conf
+	alignment = 'top_right',
+	background = false,
+	border_width = 1,
+	color1 = '#CCAB8D',
+	color2 = '#D1E7D1',
+	color3 = '#FF0000',
+	color4 = '#FDE663',
+	color5 = '#88CC00',
+	cpu_avg_samples = 2,
+	default_color = '#D1E7D1',
+	default_outline_color = 'white',
+	default_shade_color = 'white',
+	double_buffer = true,
+	draw_borders = false,
+	draw_graph_borders = true,
+	draw_outline = false,
+	draw_shades = false,
+	border_outer_margin = 20,
+	max_port_monitor_connections = 64,
+	maximum_width = 800,
+	max_user_text = 16384,
+	minimum_width = 330,
+	minimum_height = 10,
+	gap_x = 10,
+	net_avg_samples = 2,
+	no_buffers = true,
+	out_to_console = false,
+	stippled_borders = 2,
+--settings to define how to draw the window. compiz needs these settings, adjust for your WM
+	own_window = true,
+	own_window_class = 'Conky',
+	own_window_type = 'desktop',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_transparent = false,
+	own_window_argb_value = 100,
+	own_window_colour = 'black',
+	own_window_argb_visual = true,
+	update_interval = 2,
+	uppercase = false,
+	use_xft = true,
+	xftalpha = 0.8,
+	font = 'Bitstream Vera Sans Mono:size=8',-- for xfce
+	update_interval_on_battery = 2,
+
+--WIDTH = 800pixel, ${goto 430} for 2 column designs
+--SMALL BAR HEIGHT: 12, LARGE GRAPH HEIGHT: 240
+
+};
+
+conky.text = [[
+${color1}Name: ${color}$nodename   ${alignr}${color1}IP:${color} ${addr wlp2s0}
+${color1}Uptime:${color} $uptime ${color1}    	${alignr}Load:${color} $loadavg
+${color2}$hr
+${color1}CPU Usage: ${color}${cpu cpu0}% ${alignr}${color1}RAM: ${color}$memperc% ($mem/$memmax)
+${color}${cpugraph 90,390 07CC0D FF0000 -t}				${goto 430}${color}${memgraph 90,390 07CC0D FF0000 -t}
+${color1}$hr
+${alignc}${color1}CPU's
+${color1}$hr
+${color1}1 : ${color}${cpu cpu1}% ${color5}${goto 180}${cpubar cpu1 28,225}  	${goto 430}${color1}5 : ${color}${cpu cpu5}% ${goto 590}${color5}${cpubar cpu5 28,225}
+${color1}2 : ${color}${cpu cpu2}% ${color5}${goto 180}${cpubar cpu2 28,225}  	${goto 430}${color1}6 : ${color}${cpu cpu6}% ${goto 590}${color5}${cpubar cpu6 28,225}
+${color1}3 : ${color}${cpu cpu3}% ${color5}${goto 180}${cpubar cpu3 28,225}  	${goto 430}${color1}7 : ${color}${cpu cpu7}% ${goto 590}${color5}${cpubar cpu7 28,225}
+${color1}4 : ${color}${cpu cpu4}% ${color5}${goto 180}${cpubar cpu4 28,225}  	${goto 430}${color1}8 : ${color}${cpu cpu8}% ${goto 590}${color5}${cpubar cpu8 28,225}
+${color1}Swap Usage: ${color}$swapperc% ${goto 260}${color5}${swapbar 12, 125 } ${goto 430}${color1}In Bytes: ${alignr}${color}$swap/$swapmax
+${color2}$hr
+${color1}Temperatures in Celsius:
+${color1}CPU			${alignr}	${color} ${hwmon 1 temp 1}°C
+${color1}GPU 			${alignr}	${color} ${execi 60 nvidia-settings -query [gpu:0]/GPUCoreTemp -t}°C / 99°C
+${color1}Graphics card:		${alignr} 	${color} ${execi 10 nvidia-smi -q -a | grep -Eo 'GTX .+'}
+${color2}$hr
+${color1}Power management:
+${color1}Power status: ${alignr} ${color}${if_empty battery_time}${else}${color5}${endif}${if_match ${battery_percent} == 100}${color4}${endif} ${battery}
+${color5}${if_match ${battery_percent} <= 25}${color3}${endif}${if_match ${battery_percent} == 100}${color4}${endif}${battery_bar 20}
+${color1}Time left: ${alignr} ${color} ${battery_time}
+${color2}$hr
+${color1}File systems (disk):
+${color1}nvme:${alignr}${color}${fs_used /}/${fs_size /} (${fs_used_perc /}%)
+${color5}${fs_bar 20 /}
+${color1}Read ${color} ${diskio_read /dev/nvme0n1}				${goto 410}${color1}Write: ${color}${diskio_write /dev/nvme0n1}	
+${color}${diskiograph_read /dev/nvme0n1 90,390 07CC0D FF0000 -t}${color}         ${goto 430}${diskiograph_write /dev/nvme0n1 90,390 07CC0D FF0000 -t}
+${color2}$hr
+${color1}Top Processes:
+${color1}Name              PID    CPU%   MEM%  TIME     USER
+${color}${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1} ${top time 1} ${top user 1}
+${color}${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2} ${top time 2} ${top user 2}
+${color}${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3} ${top time 3} ${top user 3}
+${color}${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4} ${top time 4} ${top user 4}
+${color}${top name 5} ${top pid 5} ${top cpu 5} ${top mem 5} ${top time 5} ${top user 5}
+${color}${top name 6} ${top pid 6} ${top cpu 6} ${top mem 6} ${top time 6} ${top user 6}
+${color}${top name 7} ${top pid 7} ${top cpu 7} ${top mem 7} ${top time 7} ${top user 7}
+${color}${top name 8} ${top pid 8} ${top cpu 8} ${top mem 8} ${top time 8} ${top user 8}
+${color}${top name 9} ${top pid 9} ${top cpu 9} ${top mem 9} ${top time 9} ${top user 9}
+${color2}$hr
+${color1}WiFi Net Down:${color} ${downspeed wlp2s0}   				${goto 430}${color1}Net Up:${color} ${upspeed wlp2s0}
+${color}${downspeedgraph wlp2s0 90,390 07CC0D FF0000 -t}${color} 		${goto 430}${upspeedgraph wlp2s0 90,390 07CC0D FF0000 -t}
+${color2}$hr
+${color1}Connections: ${color} Outbound: ${tcp_portmon 32768 61000 count} Inbound: ${tcp_portmon 1 32767 count}${alignr} Total: ${tcp_portmon 1 65535 count}
+${color1}Outbound Connection ${alignr} Remote Service/Port${color}
+${tcp_portmon 32768 61000 rhost 0} ${alignr} ${tcp_portmon 32768 61000 rservice 0}
+${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1}
+${tcp_portmon 32768 61000 rhost 2} ${alignr} ${tcp_portmon 32768 61000 rservice 2}
+${tcp_portmon 32768 61000 rhost 3} ${alignr} ${tcp_portmon 32768 61000 rservice 3}
+${tcp_portmon 32768 61000 rhost 4} ${alignr} ${tcp_portmon 32768 61000 rservice 4}
+${color1}Inbound Connection ${alignr} Local Service/Port${color}
+${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
+${tcp_portmon 1 32767 rhost 1} ${alignr} ${tcp_portmon 1 32767 lservice 1}
+${tcp_portmon 1 32767 rhost 2} ${alignr} ${tcp_portmon 1 32767 lservice 2}
+${tcp_portmon 1 32767 rhost 3} ${alignr} ${tcp_portmon 1 32767 lservice 3}
+${tcp_portmon 1 32767 rhost 4} ${alignr} ${tcp_portmon 1 32767 lservice 4}
+#${color2}$hr
+#${color1}Weather Report:
+#${image ~/.config/conky/weather.png -p 100,1835 -s 580x180 -f 60 }
+#${texeci 160 curl wttr.in/DCA_0Qn_transparency=255.png --output ~/.config/conky/weather.png }
+#
+#
+#
+#
+#
+]];
