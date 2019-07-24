@@ -1,0 +1,121 @@
+conky.config = {
+--pulled from https://raw.githubusercontent.com/pascalwhoop/conky.conf/master/conky.conf
+	alignment = 'top_left',
+	background = false,
+	border_width = 1,
+	color1 = '#CCAB8D',
+	color2 = '#D1E7D1',
+	color3 = '#FF0000',
+	color4 = '#FDE663',
+	color5 = '#88CC00',
+	cpu_avg_samples = 2,
+	default_color = '#D1E7D1',
+	default_outline_color = 'white',
+	default_shade_color = 'white',
+	double_buffer = true,
+	draw_borders = false,
+	draw_graph_borders = true,
+	draw_outline = false,
+	draw_shades = false,
+	border_outer_margin = 20,
+	max_port_monitor_connections = 64,
+	maximum_width = 490,
+	minimum_width = '400',
+	max_user_text = 16384,
+	minimum_width = 275,
+	minimum_height = 10,
+	net_avg_samples = 2,
+	net_avg_samples = 2,
+	no_buffers = true,
+	out_to_console = false,
+	stippled_borders = 2,
+--settings to define how to draw the window. compiz needs these settings, adjust for your WM
+	own_window = true,
+	own_window_class = 'Conky',
+	own_window_type = 'desktop',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_transparent = false,
+	own_window_argb_value = 100,
+	own_window_colour = 'black',
+	own_window_argb_visual = true,
+	update_interval = 2,
+	uppercase = false,
+	use_xft = true,
+	xftalpha = 0.8,
+	font = 'Bitstream Vera Sans Mono:size=8',-- for xfce
+	update_interval_on_battery = 2,
+
+--WIDTH = 800pixel, ${goto 430} for 2 column designs
+--SMALL BAR HEIGHT: 12, LARGE GRAPH HEIGHT: 240
+
+};
+
+conky.text = [[
+${color1}Name: ${color}$nodename   ${alignr}${color1}IP:${color} ${addr enp8s0}
+${color1}Uptime:${color} $uptime ${color1}    	${alignr}Load:${color} $loadavg
+${color2}$hr
+${color1}CPU Usage: ${color}${cpu cpu0}% ${alignr}${color1}RAM: ${color}$memperc% ($mem/$memmax)
+${color}${cpugraph 50,240 07CC0D FF0000 -t}				${goto 275}${color}${memgraph 50,240 07CC0D FF0000 -t}
+${color2}$hr
+${color1}CPU  1: ${color}${cpu cpu1}% ${color5}${goto 110}${cpubar cpu1 12,155}  	${goto 275}${color1}CPU  9: ${color}${cpu cpu9}% ${color5}${goto 360}${cpubar cpu9 12,155}
+${color1}CPU  2: ${color}${cpu cpu2}% ${color5}${goto 110}${cpubar cpu2 12,155}  	${goto 275}${color1}CPU 10: ${color}${cpu cpu10}% ${color5}${goto 360}${cpubar cpu10 12,155}
+${color1}CPU  3: ${color}${cpu cpu3}% ${color5}${goto 110}${cpubar cpu3 12,155}  	${goto 275}${color1}CPU 11: ${color}${cpu cpu11}% ${color5}${goto 360}${cpubar cpu11 12,155}
+${color1}CPU  4: ${color}${cpu cpu4}% ${color5}${goto 110}${cpubar cpu4 12,155}  	${goto 275}${color1}CPU 12: ${color}${cpu cpu12}% ${color5}${goto 360}${cpubar cpu12 12,155}
+${color1}CPU  5: ${color}${cpu cpu5}% ${color5}${goto 110}${cpubar cpu1 12,155}  	${goto 275}${color1}CPU 13: ${color}${cpu cpu13}% ${color5}${goto 360}${cpubar cpu13 12,155}
+${color1}CPU  6: ${color}${cpu cpu6}% ${color5}${goto 110}${cpubar cpu2 12,155}  	${goto 275}${color1}CPU 14: ${color}${cpu cpu14}% ${color5}${goto 360}${cpubar cpu14 12,155}
+${color1}CPU  7: ${color}${cpu cpu7}% ${color5}${goto 110}${cpubar cpu3 12,155}  	${goto 275}${color1}CPU 15: ${color}${cpu cpu15}% ${color5}${goto 360}${cpubar cpu15 12,155}
+${color1}CPU  8: ${color}${cpu cpu8}% ${color5}${goto 110}${cpubar cpu4 12,155}  	${goto 275}${color1}CPU 16: ${color}${cpu cpu16}% ${color5}${goto 360}${cpubar cpu16 12,155}
+
+${color1}Swap Usage: ${color}$swapperc% ${goto 160}${color5}${swapbar 6, 125 } ${goto 330}${color1}In Bytes: ${alignr}${color}$swap/$swapmax
+${color2}$hr
+${color1}Temperatures in Celsius:
+${color1}CPU			${alignr}	${color} ${hwmon 0 temp 1}°C
+${color1}GPU 			${alignr}	${color} ${execi 60 nvidia-settings -query [gpu:0]/GPUCoreTemp -t}°C / 99°C
+${color1}Graphics card:		${alignr} 	${color} ${execi 10 nvidia-smi -q -a | grep -Eo 'GTX .+'}
+${color2}$hr
+${color1}File systems:
+${color1}root     ${color}${fs_used /}/${fs_size /}${color1}											
+${color5}${fs_bar 12 /}
+${color1}Read: ${color} ${diskio_read /dev/sdb}				${goto 290}${color1}Write: ${color}${diskio_write /dev/sdb}	
+${color}${diskiograph_read /dev/sdb 50,240 07CC0D FF0000 -t}${color}         ${goto 275}${diskiograph_write /dev/sdb 50,240 07CC0D FF0000 -t}
+${color1}Source     ${color}${fs_used /home/mine/Source}/${fs_size /home/mine/Source/}${color1}											
+${color5}${fs_bar 12 /home/mine/Source}
+${color1}Read: ${color} ${diskio_read /dev/nvme0n1}				${goto 290}${color1}Write: ${color}${diskio_write /dev/nvme0n1}	
+${color}${diskiograph_read /dev/nvme0n1 50,240 07CC0D FF0000 -t}${color}         ${goto 275}${diskiograph_write /dev/nvme0n1 50,240 07CC0D FF0000 -t}
+${color1}Storage     ${color}${fs_used /media/storage}/${fs_size /media/storage}${color1}											
+${color5}${fs_bar 12 /media/storage}
+${color2}$hr
+${color1}Top Processes:
+${color1}Name              PID    CPU%   MEM%       TIME     USER
+${color}${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1} ${top time 1} ${top user 1}
+${color}${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2} ${top time 2} ${top user 2}
+${color}${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3} ${top time 3} ${top user 3}
+${color}${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4} ${top time 4} ${top user 4}
+${color}${top name 5} ${top pid 5} ${top cpu 5} ${top mem 5} ${top time 5} ${top user 5}
+${color}${top name 6} ${top pid 6} ${top cpu 6} ${top mem 6} ${top time 6} ${top user 6}
+${color}${top name 7} ${top pid 7} ${top cpu 7} ${top mem 7} ${top time 7} ${top user 7}
+${color}${top name 8} ${top pid 8} ${top cpu 8} ${top mem 8} ${top time 8} ${top user 8}
+${color2}$hr
+${color1}Ethernet:
+${color1}Down:${color} ${downspeed enp8s0}   				${goto 275}${color1}Up:${color} ${upspeed enp8s0}
+${color}${downspeedgraph enp8s0 50,240 07CC0D FF0000 -t}${color} 		${goto 275}${upspeedgraph enp8s0 50,240 07CC0D FF0000 -t}
+${color2}$hr
+${color1}Port(s)${alignr}#Connections
+${color}Inbound: ${tcp_portmon 1 32767 count} Outbound: ${tcp_portmon 32768 61000 count}${alignr} ALL: ${tcp_portmon 1 65535 count}
+${color1}Inbound Connection ${alignr} Local Service/Port${color}
+${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
+${tcp_portmon 1 32767 rhost 1} ${alignr} ${tcp_portmon 1 32767 lservice 1}
+${tcp_portmon 1 32767 rhost 2} ${alignr} ${tcp_portmon 1 32767 lservice 2}
+${tcp_portmon 1 32767 rhost 3} ${alignr} ${tcp_portmon 1 32767 lservice 3}
+${tcp_portmon 1 32767 rhost 4} ${alignr} ${tcp_portmon 1 32767 lservice 4}
+${color1}Outbound Connection ${alignr} Remote Service/Port${color}
+${tcp_portmon 32768 61000 rhost 0} ${alignr} ${tcp_portmon 32768 61000 rservice 0}
+${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1}
+${tcp_portmon 32768 61000 rhost 2} ${alignr} ${tcp_portmon 32768 61000 rservice 2}
+${tcp_portmon 32768 61000 rhost 3} ${alignr} ${tcp_portmon 32768 61000 rservice 3}
+${tcp_portmon 32768 61000 rhost 4} ${alignr} ${tcp_portmon 32768 61000 rservice 4}
+#${color2}$hr
+#${color1}Weather Report:
+#${image ~/.config/conky/weather.png -p 0,1800 -s 580x180 -f 60 }
+#${texeci 160 curl wttr.in/DCA_0Qn_transparency=255.png --output ~/.config/conky/weather.png }
+]];
