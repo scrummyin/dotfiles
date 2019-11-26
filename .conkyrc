@@ -50,14 +50,11 @@ conky.config = {
 };
 
 conky.text = [[
-${color1}Name: ${color}$nodename   ${alignr}${color1}IP:${color} ${addr wlp2s0}
-${color1}Uptime:${color} $uptime ${color1}    	${alignr}Load:${color} $loadavg
+${color1}Name: ${color}$nodename   	${alignr}${color1}Gfx Driver:${color} ${execi 10 prime-select query}
+${color1}Uptime:${color} $uptime ${color1}    	${alignr}${color1}IP:${color} ${addr wlp2s0}
 ${color2}$hr
 ${color1}CPU Usage: ${color}${cpu cpu0}% ${alignr}${color1}RAM: ${color}$memperc% ($mem/$memmax)
 ${color}${cpugraph 90,390 07CC0D FF0000 -t}				${goto 430}${color}${memgraph 90,390 07CC0D FF0000 -t}
-${color1}$hr
-${alignc}${color1}CPU's
-${color1}$hr
 ${color1}1 : ${color}${cpu cpu1}% ${color5}${goto 180}${cpubar cpu1 28,225}  	${goto 430}${color1}5 : ${color}${cpu cpu5}% ${goto 590}${color5}${cpubar cpu5 28,225}
 ${color1}2 : ${color}${cpu cpu2}% ${color5}${goto 180}${cpubar cpu2 28,225}  	${goto 430}${color1}6 : ${color}${cpu cpu6}% ${goto 590}${color5}${cpubar cpu6 28,225}
 ${color1}3 : ${color}${cpu cpu3}% ${color5}${goto 180}${cpubar cpu3 28,225}  	${goto 430}${color1}7 : ${color}${cpu cpu7}% ${goto 590}${color5}${cpubar cpu7 28,225}
@@ -67,7 +64,6 @@ ${color2}$hr
 ${color1}Temperatures in Celsius:
 ${color1}CPU			${alignr}	${color} ${hwmon 1 temp 1}°C
 ${color1}GPU 			${alignr}	${color} ${execi 60 nvidia-settings -query [gpu:0]/GPUCoreTemp -t}°C / 99°C
-${color1}Graphics card:		${alignr} 	${color} ${execi 10 nvidia-smi -q -a | grep -Eo 'GTX .+'}
 ${color2}$hr
 ${color1}Power management:
 ${color1}Power status: ${alignr} ${color}${if_empty battery_time}${else}${color5}${endif}${if_match ${battery_percent} == 100}${color4}${endif} ${battery}
@@ -95,7 +91,7 @@ ${color2}$hr
 ${color1}WiFi Net Down:${color} ${downspeed wlp2s0}   				${goto 430}${color1}Net Up:${color} ${upspeed wlp2s0}
 ${color}${downspeedgraph wlp2s0 90,390 07CC0D FF0000 -t}${color} 		${goto 430}${upspeedgraph wlp2s0 90,390 07CC0D FF0000 -t}
 ${color2}$hr
-${color1}Connections: ${color} Outbound: ${tcp_portmon 32768 61000 count} Inbound: ${tcp_portmon 1 32767 count}${alignr} Total: ${tcp_portmon 1 65535 count}
+${color1}Connections: ${color1} Outbound: ${color}${tcp_portmon 32768 61000 count} ${color1}Inbound: ${color}${tcp_portmon 1 32767 count}${alignr} ${color1}Total: ${color}${tcp_portmon 1 65535 count}
 ${color1}Outbound Connection ${alignr} Remote Service/Port${color}
 ${tcp_portmon 32768 61000 rhost 0} ${alignr} ${tcp_portmon 32768 61000 rservice 0}
 ${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1}
@@ -103,11 +99,11 @@ ${tcp_portmon 32768 61000 rhost 2} ${alignr} ${tcp_portmon 32768 61000 rservice 
 ${tcp_portmon 32768 61000 rhost 3} ${alignr} ${tcp_portmon 32768 61000 rservice 3}
 ${tcp_portmon 32768 61000 rhost 4} ${alignr} ${tcp_portmon 32768 61000 rservice 4}
 ${color1}Inbound Connection ${alignr} Local Service/Port${color}
-${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
-${tcp_portmon 1 32767 rhost 1} ${alignr} ${tcp_portmon 1 32767 lservice 1}
-${tcp_portmon 1 32767 rhost 2} ${alignr} ${tcp_portmon 1 32767 lservice 2}
-${tcp_portmon 1 32767 rhost 3} ${alignr} ${tcp_portmon 1 32767 lservice 3}
-${tcp_portmon 1 32767 rhost 4} ${alignr} ${tcp_portmon 1 32767 lservice 4}
+${tcp_portmon 1 32768 rhost 0} ${alignr} ${tcp_portmon 1 32768 lservice 0}
+${tcp_portmon 1 32768 rhost 1} ${alignr} ${tcp_portmon 1 32768 lservice 1}
+${tcp_portmon 1 32768 rhost 2} ${alignr} ${tcp_portmon 1 32768 lservice 2}
+${tcp_portmon 1 32768 rhost 3} ${alignr} ${tcp_portmon 1 32768 lservice 3}
+${tcp_portmon 1 32768 rhost 4} ${alignr} ${tcp_portmon 1 32768 lservice 4}
 #${color2}$hr
 #${color1}Weather Report:
 #${image ~/.config/conky/weather.png -p 100,1835 -s 580x180 -f 60 }
